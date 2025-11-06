@@ -6,12 +6,9 @@ import '../provider/database_provider.dart';
 
 class ClientsController extends ChangeNotifier {
   List customerList = [];
-  BuildContext context;
-  late MyDatabase db;
+  final MyDatabase db;
 
-  ClientsController({required this.context}) {
-    db = DatabaseProvider.of(context);
-  }
+  ClientsController(this.db);
 
   Future getAllClients() async {
     await db.fetchAllClients().then(

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/controller/services_controller.dart';
 import 'package:readiate_clean/translate/strings.dart';
 
 class FullScreenDialogAddService extends StatefulWidget {
-  const FullScreenDialogAddService({super.key, required this.controller});
-
-  final ServicesController controller;
+  const FullScreenDialogAddService({super.key});
 
   @override
   State<FullScreenDialogAddService> createState() => _FullScreenDialogAddServiceState();
@@ -21,6 +20,8 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<ServicesController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Translate.getString(Texts.add_service_title)),
@@ -59,7 +60,7 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: const Icon(Icons.phone),
+                suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: allDayValueController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -75,7 +76,7 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: const Icon(Icons.location_on),
+                suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: halfDayValueController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -91,7 +92,7 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                     _allDayValue = double.parse(allDayValueController.text);
                     _halfDayValue = double.parse(halfDayValueController.text);
 
-                    widget.controller.addService(descriptionController.text, _allDayValue, _halfDayValue,).then(
+                    controller.addService(descriptionController.text, _allDayValue, _halfDayValue,).then(
                       (value) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -102,9 +103,9 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                             backgroundColor: Colors.green,
                           ),
                         );
-                        Navigator.pop(context);
                       },
                     );
+                    Navigator.pop(context);
                   } catch (e) {
                     print(e);
                   }

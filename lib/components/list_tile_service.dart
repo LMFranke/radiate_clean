@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:readiate_clean/components/full_screen_dialog_edit_service.dart';
-import 'package:readiate_clean/controller/services_controller.dart';
 import 'package:readiate_clean/database/database.dart';
 
 import '../model/enum_pop_menu_options.dart';
@@ -8,8 +7,7 @@ import '../translate/strings.dart';
 
 class ListTileService extends StatelessWidget {
 
-  const ListTileService({super.key, required this.service, required this.controller});
-  final ServicesController controller;
+  const ListTileService({super.key, required this.service});
   final ServiceTableData service;
 
   @override
@@ -70,7 +68,6 @@ class ListTileService extends StatelessWidget {
                         fullscreenDialog: true,
                         builder: (context) {
                           return FullScreenDialogEditService(
-                            controller: controller,
                             service: service,
                           );
                         },

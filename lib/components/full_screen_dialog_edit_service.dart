@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/database/database.dart';
 
 import '../controller/services_controller.dart';
 import '../translate/strings.dart';
 
 class FullScreenDialogEditService extends StatefulWidget {
-  const FullScreenDialogEditService({super.key, required this.controller, required this.service});
+  const FullScreenDialogEditService({super.key, required this.service});
 
-  final ServicesController controller;
   final ServiceTableData service;
 
   @override
@@ -105,25 +105,26 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
                     _allDayValue = double.parse(allDayValueController.text);
                     _halfDayValue = double.parse(halfDayValueController.text);
 
-                    widget.controller.updateService(
+                    if (_allDayValue == 0 || _halfDayValue == 0 || descriptionController.text.isEmpty) {
+                      return;
+                    }
+
+                    context.watch<ServicesController>().updateService(
                       widget.service.id,
                       descriptionController.text,
                       _allDayValue,
                       _halfDayValue,
-                    ).then(
-                      (value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              Translate.getString(Texts.success_add_service),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-                        Navigator.pop(context);
-                      },
                     );
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          Translate.getString(Texts.success_add_service),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.pop(context);
                   } catch (e) {
                     print(e);
                   }

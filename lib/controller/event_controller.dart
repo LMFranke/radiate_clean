@@ -23,11 +23,9 @@ class EventController extends ChangeNotifier {
   DateTime? selectedDate;
   TypeOfWork selectedTypeOfWork = TypeOfWork.allDay;
 
-  BuildContext context;
-  late MyDatabase db;
+  final MyDatabase db;
 
-  EventController({required this.context}) {
-    db = DatabaseProvider.of(context);
+  EventController(this.db) {
     init();
   }
 

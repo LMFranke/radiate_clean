@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../controller/clients_controller.dart';
 import '../database/database.dart';
 import '../translate/strings.dart';
 
 class FullScreenDialogEditClient extends StatefulWidget {
-  const FullScreenDialogEditClient({super.key, required this.controller, required this.client});
+  const FullScreenDialogEditClient({super.key, required this.client});
 
-  final ClientsController controller;
   final ClientsTableData client;
 
   @override
@@ -32,6 +32,8 @@ class _FullScreenDialogEditClientState extends State<FullScreenDialogEditClient>
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<ClientsController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Translate.getString(Texts.edit_client_title)),
@@ -113,17 +115,18 @@ class _FullScreenDialogEditClientState extends State<FullScreenDialogEditClient>
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  widget.controller.updateClient(
+                  if (nameController.text.isEmpty || addressController.text.isEmpty || phoneNumberController.text.isEmpty) {
+                    return;
+                  }
+
+                  controller.updateClient(
                     widget.client.id,
                     nameController.text,
                     phoneNumberController.text,
                     addressController.text,
                     preferencesController.text,
-                  ).then(
-                    (value) {
-                      Navigator.pop(context);
-                    },
                   );
+                  Navigator.pop(context);
                 },
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.all(12)),

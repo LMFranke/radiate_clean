@@ -259,9 +259,37 @@ class LanguageBrazilianPortuguese {
         {
           return "Senha";
         }
-      default:
+      case Texts.report_filter:
         {
-          return "Translate not found!";
+          return "Filtrar Relatório";
+        }
+      case Texts.filter_by_client:
+        {
+          return "Por cliente";
+        }
+      case Texts.filter_by_service:
+        {
+          return "Por serviço";
+        }
+      case Texts.group_by:
+        {
+          return "Agrupar por";
+        }
+      case Texts.start_date:
+        {
+          return "Data inicial";
+        }
+      case Texts.end_date:
+        {
+          return "Data final";
+        }
+      case Texts.apply:
+        {
+          return "Aplicar";
+        }
+      case Texts.cancel:
+        {
+          return "Cancelar";
         }
     }
   }

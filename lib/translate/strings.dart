@@ -70,6 +70,15 @@ enum Texts {
   login,
   password,
 
+  report_filter,
+  filter_by_client,
+  filter_by_service,
+  group_by,
+  start_date,
+  end_date,
+  apply,
+  cancel,
+
 }
 
 class Translate {

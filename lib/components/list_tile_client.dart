@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/components/full_screen_dialog_edit_client.dart';
 import 'package:readiate_clean/components/full_screen_dialog_info_client.dart';
 import 'package:readiate_clean/controller/clients_controller.dart';
@@ -9,12 +10,12 @@ import '../model/enum_pop_menu_options.dart';
 
 class ListTileClient extends StatelessWidget {
 
-  const ListTileClient({super.key, required this.client, required this.controller});
+  const ListTileClient({super.key, required this.client});
   final ClientsTableData client;
-  final ClientsController controller;
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<ClientsController>();
     return Column(
       children: [
         ListTile(
@@ -71,7 +72,6 @@ class ListTileClient extends StatelessWidget {
                         fullscreenDialog: true,
                         builder: (context) {
                           return FullScreenDialogEditClient(
-                            controller: controller,
                             client: client,
                           );
                         },
@@ -93,7 +93,6 @@ class ListTileClient extends StatelessWidget {
                   }
                 case PopMenuOptions.remove:
                   {
-                    // controller.removeClient(client);
                     controller.deleteClient(client.id);
                   }
                 default:

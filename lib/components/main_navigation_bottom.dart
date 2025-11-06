@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:readiate_clean/components/full_screen_dialog_add_client.dart';
 import 'package:readiate_clean/components/full_screen_dialog_add_event.dart';
 import 'package:readiate_clean/components/full_screen_dialog_add_service.dart';
-import 'package:readiate_clean/controller/clients_controller.dart';
-import 'package:readiate_clean/controller/event_controller.dart';
-import 'package:readiate_clean/controller/services_controller.dart';
 import 'package:readiate_clean/view/calendar_screen.dart';
 import 'package:readiate_clean/view/clients_screen.dart';
 import 'package:readiate_clean/view/report_screen.dart';
@@ -28,15 +25,11 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
 
   @override
   Widget build(BuildContext context) {
-    ClientsController clientsController = ClientsController(context: context);
-    ServicesController servicesController = ServicesController(context: context);
-    EventController eventController = EventController(context: context);
-
     late final List screenList = [
-      CalendarScreen(eventController: eventController),
+      CalendarScreen(),
       const ReportScreen(),
-      ServicesScreen(servicesController: servicesController),
-      ClientsScreen(clientsController: clientsController),
+      ServicesScreen(),
+      ClientsScreen(),
     ];
 
     return Scaffold(
@@ -146,17 +139,17 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
           switch (_currentIndexScreen) {
             case 0:
               {
-                showFullScreenDialogAddEvent(eventController);
+                showFullScreenDialogAddEvent();
                 break;
               }
             case 2:
               {
-                showFullScreenDialogAddService(servicesController);
+                showFullScreenDialogAddService();
                 break;
               }
             case 3:
               {
-                showFullScreenDialogAddClient(clientsController);
+                showFullScreenDialogAddClient();
                 break;
               }
           }
@@ -166,32 +159,32 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
     );
   }
 
-  void showFullScreenDialogAddEvent(EventController eventController) {
+  void showFullScreenDialogAddEvent() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return FullScreenDialogAddEvent(eventController: eventController);
+          return FullScreenDialogAddEvent();
         },
       ),
     );
   }
 
-  void showFullScreenDialogAddClient(ClientsController clientsController) {
+  void showFullScreenDialogAddClient() {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return FullScreenDialogAddClient(controller: clientsController);
+          return FullScreenDialogAddClient();
         },
       ),
     );
   }
 
-  void showFullScreenDialogAddService(ServicesController servicesController) {
+  void showFullScreenDialogAddService() {
     Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,
         builder: (context) {
-          return FullScreenDialogAddService(controller: servicesController);
+          return FullScreenDialogAddService();
         },
       ),
     );

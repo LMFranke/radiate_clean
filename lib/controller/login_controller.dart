@@ -5,7 +5,6 @@ import '../database/database.dart';
 import '../provider/database_provider.dart';
 
 class LoginController {
-  late MyDatabase db;
 
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -22,13 +21,9 @@ class LoginController {
     );
   }
 
-  void init(BuildContext context) {
-    db = DatabaseProvider.of(context);
-  }
-
-  Future authUser() async {
+  Future authUser(MyDatabase db) async {
     await db.fetchUser().then(
-      (listUser) {
+          (listUser) {
         if (listUser.isEmpty) {
           isUserAndPasswordValid = false;
         }
@@ -41,7 +36,7 @@ class LoginController {
         }
       },
     ).onError(
-      (error, stackTrace) {
+          (error, stackTrace) {
         isUserAndPasswordValid = false;
       },
     );

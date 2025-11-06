@@ -18,7 +18,6 @@ class StorageSettings {
     await prefs.setString(_langPath, newLanguage);
     if (prefs.getString(_langPath) == newLanguage) {
       language = newLanguage;
-      print(language);
       return true;
     }
     return false;

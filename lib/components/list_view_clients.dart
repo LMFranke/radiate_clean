@@ -7,9 +7,8 @@ import 'list_tile_client.dart';
 
 class ListViewClients extends StatelessWidget {
 
-  const ListViewClients({super.key, required this.clientList, required this.controller});
+  const ListViewClients({super.key, required this.clientList});
   final List clientList;
-  final ClientsController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,7 @@ class ListViewClients extends StatelessWidget {
               itemCount: clientList.length,
               itemBuilder: (context, index) {
                 ClientsTableData indexClient = clientList[index];
-                return ListTileClient(client: indexClient, controller: controller,);
+                return ListTileClient(client: indexClient,);
               },
             )
           : Center(

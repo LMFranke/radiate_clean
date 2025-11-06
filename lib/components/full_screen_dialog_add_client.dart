@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/components/snack_bar_info.dart';
 
 import '../controller/clients_controller.dart';
 import '../translate/strings.dart';
 
 class FullScreenDialogAddClient extends StatefulWidget {
-  const FullScreenDialogAddClient({super.key, required this.controller});
-  final ClientsController controller;
+  const FullScreenDialogAddClient({super.key});
 
   @override
   State<FullScreenDialogAddClient> createState() => _FullScreenDialogAddClientState();
@@ -22,6 +22,8 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<ClientsController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Translate.getString(Texts.add_client_title)),
@@ -103,7 +105,11 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  widget.controller.addClient(
+                  if (nameController.text.isEmpty || addressController.text.isEmpty || phoneNumberController.text.isEmpty) {
+                    return;
+                  }
+
+                  controller.addClient(
                     nameController.text,
                     addressController.text,
                     phoneNumberController.text,
@@ -115,8 +121,8 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
                         textColor: Colors.white,
                         backgroundColor: Colors.green,
                       );
-                      Navigator.pop(context);
                   },);
+                  Navigator.pop(context);
                 },
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.all(12)),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/components/snack_bar_info.dart';
 import 'package:readiate_clean/controller/event_controller.dart';
 import 'package:readiate_clean/database/database.dart';
@@ -7,9 +8,7 @@ import '../model/enum_type_of_work.dart';
 import '../translate/strings.dart';
 
 class FullScreenDialogAddEvent extends StatefulWidget {
-  const FullScreenDialogAddEvent({super.key, required this.eventController});
-
-  final EventController eventController;
+  const FullScreenDialogAddEvent({super.key});
 
   @override
   State<FullScreenDialogAddEvent> createState() => _FullScreenDialogAddEventState();
@@ -26,6 +25,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
 
   @override
   Widget build(BuildContext context) {
+    final eventController = context.read<EventController>();
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -46,7 +46,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               FutureBuilder(
-                future: widget.eventController.getDropButtonClients(),
+                future: eventController.getDropButtonClients(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
@@ -66,7 +66,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                     final clients = snapshot.data!;
 
                     return DropdownButtonFormField(
-                      value: selectedClient,
+                      initialValue: selectedClient,
                       hint: Text(Translate.getString(Texts.select_client)),
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -83,7 +83,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                       onChanged: (clientSelected) {
                         setState(() {
                           selectedClient = clientSelected;
-                          widget.eventController.selectedClient = clientSelected;
+                          eventController.selectedClient = clientSelected;
                         });
                       },
                     );
@@ -94,7 +94,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                 height: 25,
               ),
               FutureBuilder(
-                future: widget.eventController.getDropButtonServices(),
+                future: eventController.getDropButtonServices(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
@@ -130,7 +130,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                       onChanged: (serviceSelected) {
                         setState(() {
                           selectedService = serviceSelected;
-                          widget.eventController.selectedService = serviceSelected;
+                          eventController.selectedService = serviceSelected;
                         });
                       },
                     );
@@ -174,7 +174,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   ).then(
                     (dateSelected) {
                       pickerDateController.text = "${dateSelected?.day}/${dateSelected?.month}/${dateSelected?.year}";
-                      widget.eventController.selectedDate = dateSelected;
+                      eventController.selectedDate = dateSelected;
                     },
                   );
                 },
@@ -257,10 +257,10 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: () {
-                    if (widget.eventController.validateInput(context)) {
+                    if (eventController.validateInput(context)) {
                       Navigator.pop(context);
 
-                      widget.eventController.addEvent(selectedType, selectedFrequency).then(
+                      eventController.addEvent(selectedType, selectedFrequency).then(
                             (value) {
                           SnackBarInfo(
                               text: Translate.getString(Texts.success_add_event),

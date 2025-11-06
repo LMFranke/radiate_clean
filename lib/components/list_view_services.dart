@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:readiate_clean/components/list_tile_service.dart';
-import 'package:readiate_clean/controller/services_controller.dart';
 import 'package:readiate_clean/database/database.dart';
 
+import '../controller/services_controller.dart';
 import '../translate/strings.dart';
 
 class ListViewServices extends StatelessWidget {
-
-  const ListViewServices({super.key, required this.serviceList, required this.controller});
-  final List serviceList;
-  final ServicesController controller;
+  const ListViewServices({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final servicesController = context.watch<ServicesController>();
+    servicesController.getAllServices();
     return Expanded(
-      child: serviceList.isNotEmpty
+      child: servicesController.serviceList.isNotEmpty
           ? ListView.builder(
         shrinkWrap: true,
-        itemCount: serviceList.length,
+        itemCount: servicesController.serviceList.length,
         itemBuilder: (context, index) {
-          ServiceTableData indexService = serviceList[index];
-          return ListTileService(service: indexService, controller: controller,);
+          ServiceTableData indexService = servicesController.serviceList[index];
+
+          return ListTileService(
+            service: indexService,
+          );
         },
       )
           : Center(

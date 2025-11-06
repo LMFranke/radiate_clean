@@ -259,10 +259,38 @@ class LanguageEnglish {
         {
           return "Password";
         }
-      default:
+      case Texts.report_filter:
         {
-          return "Translation not found!";
+          return "Report Filter";
         }
-    }
+      case Texts.filter_by_client:
+        {
+          return "By client";
+        }
+      case Texts.filter_by_service:
+        {
+          return "By service";
+        }
+      case Texts.group_by:
+        {
+          return "Group by";
+        }
+      case Texts.start_date:
+        {
+          return "Start date";
+        }
+      case Texts.end_date:
+        {
+          return "End date";
+        }
+      case Texts.apply:
+        {
+          return "Apply";
+        }
+      case Texts.cancel:
+        {
+          return "Cancel";
+        }
+      }
   }
 }
