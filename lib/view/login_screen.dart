@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:readiate_clean/components/main_navigation_bottom.dart';
+import 'package:readiate_clean/storage/storage_settings.dart';
 
 import '../controller/login_controller.dart';
 import '../provider/database_provider.dart';
@@ -18,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final LoginController controller = LoginController();
   final _loginKey = GlobalKey<FormState>();
+  bool rememberMeOption = false;
 
   @override
   void initState() {
@@ -29,17 +31,18 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Form(
         key: _loginKey,
-        child: Center(
-          child: CustomScrollView(
-            slivers: [
-              SliverFillRemaining(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: SizedBox(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
                         height: 200,
                         child: Image.asset(
                           "assets/images/logo.png",
@@ -49,11 +52,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           },
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: TextFormField(
+                      const SizedBox(height: 15),
+                      TextFormField(
                         textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           errorText: !controller.isUserAndPasswordValid
@@ -79,11 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                    ),
-                    const SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: TextFormField(
+                      const SizedBox(height: 10),
+                      TextFormField(
                         textInputAction: TextInputAction.done,
                         controller: controller.passwordController,
                         focusNode: focusNodePassword,
@@ -122,11 +119,23 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                    ),
-                    const SizedBox(height: 15),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                      child: SizedBox(
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Checkbox(
+                            value: rememberMeOption,
+                            onChanged: (value) {
+                              setState(() {
+                                rememberMeOption = !rememberMeOption;
+                              });
+                            },
+                            activeColor: Colors.blue,
+                          ),
+                          Text(Translate.getString(Texts.remember_me)),
+                        ],
+                      ),
+                      const SizedBox(height: 15),
+                      SizedBox(
                         width: double.infinity,
                         child: FilledButton(
                           onPressed: () {
@@ -135,9 +144,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           style: const ButtonStyle(
                             padding: WidgetStatePropertyAll(EdgeInsets.all(12)),
                             elevation: WidgetStatePropertyAll(5),
-                            backgroundColor: WidgetStatePropertyAll(
-                              Colors.blue,
-                            ),
+                            backgroundColor: WidgetStatePropertyAll(Colors.blue),
                           ),
                           child: Text(
                             Translate.getString(Texts.login),
@@ -148,13 +155,13 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 25),
-                  ],
+                      const SizedBox(height: 25),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -165,6 +172,9 @@ class _LoginScreenState extends State<LoginScreen> {
       final db = DatabaseProvider.of(context);
 
       await controller.authUser(db).then((value) {
+        StorageSettings storageSettings = StorageSettings();
+        storageSettings.saveRememberLogin(rememberMeOption);
+
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

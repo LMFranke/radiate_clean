@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:readiate_clean/database/database.dart';
 
-import '../controller/services_controller.dart';
-import '../translate/strings.dart';
+import '../../controller/services_controller.dart';
+import '../../translate/strings.dart';
 
 class FullScreenDialogEditService extends StatefulWidget {
   const FullScreenDialogEditService({super.key, required this.service});
@@ -114,17 +114,20 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
                       descriptionController.text,
                       _allDayValue,
                       _halfDayValue,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          Translate.getString(Texts.success_add_service),
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                    Navigator.pop(context);
+                    ).then((value) {
+                      if (context.mounted) {
+                        Navigator.pop(context);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              Translate.getString(Texts.success_add_service),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      }
+                    },);
                   } catch (e) {
                     print(e);
                   }

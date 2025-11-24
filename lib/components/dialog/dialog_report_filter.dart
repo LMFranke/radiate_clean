@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 import 'package:readiate_clean/translate/strings.dart';
 
-import '../controller/report_controller.dart';
+import '../../controller/report_controller.dart';
 
 class ReportFilterDialog extends StatefulWidget {
   const ReportFilterDialog({super.key});

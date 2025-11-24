@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:readiate_clean/components/full_screen_dialog_edit_service.dart';
+import 'package:provider/provider.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_edit_service.dart';
 import 'package:readiate_clean/database/database.dart';
 
-import '../model/enum_pop_menu_options.dart';
+import '../controller/services_controller.dart';
+import '../model/enum/enum_pop_menu_options.dart';
 import '../translate/strings.dart';
 
 class ListTileService extends StatelessWidget {
@@ -12,6 +14,8 @@ class ListTileService extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.watch<ServicesController>();
+
     return Column(
       children: [
         ListTile(
@@ -80,7 +84,7 @@ class ListTileService extends StatelessWidget {
                   }
                 case PopMenuOptions.remove:
                   {
-                    // pageController.onLongPress(context, customer);
+                    controller.deleteService(service.id);
                   }
                 default:
                   {}

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../translate/strings.dart';
-import '../view/language_screen.dart';
-import '../view/login_screen.dart';
+import '../../translate/strings.dart';
+import '../../view/language_screen.dart';
+import '../../view/login_screen.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key, required this.title});

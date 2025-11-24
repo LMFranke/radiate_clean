@@ -115,6 +115,9 @@ class MyDatabase extends _$MyDatabase {
   Future<List<ServiceTableData>> fetchAllServices() => select(serviceTable).get();
   Future<int> insertService(ServiceTableCompanion service) => into(serviceTable).insert(service);
   Future<int> updateService(ServiceTableCompanion service) => update(serviceTable).write(service);
+  Future<void> deleteService(int serviceId) async {
+    await (delete(serviceTable)..where((tbl) => tbl.id.equals(serviceId))).go();
+  }
 
   Future<List<SchedulesTableData>> fetchAllEvents() => select(schedulesTable).get();
   Future<int> insertEvent(SchedulesTableCompanion schedule) => into(schedulesTable).insert(schedule);

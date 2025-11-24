@@ -1,9 +1,9 @@
 import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
-import 'package:readiate_clean/model/enum_type_of_work.dart';
+import 'package:readiate_clean/model/enum/enum_type_of_work.dart';
 import 'package:readiate_clean/model/event.dart';
 
-import '../components/snack_bar_info.dart';
+import '../components/util/snack_bar_info.dart';
 import '../database/database.dart';
 import '../provider/database_provider.dart';
 import '../translate/strings.dart';

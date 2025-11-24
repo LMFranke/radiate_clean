@@ -5,6 +5,7 @@ import 'package:readiate_clean/provider/database_provider.dart';
 import 'package:readiate_clean/storage/storage_settings.dart';
 import 'package:readiate_clean/view/login_screen.dart';
 
+import 'components/main_navigation_bottom.dart';
 import 'controller/clients_controller.dart';
 import 'controller/event_controller.dart';
 import 'controller/login_controller.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: const LoginScreen(),
+        home: StorageSettings.rememberLogin ? MainNavigationBottom() : LoginScreen(),
       ),
     );
   }

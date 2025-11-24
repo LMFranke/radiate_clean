@@ -4,13 +4,16 @@ class StorageSettings {
 
   static String language = "";
   static String userName = "";
+  static bool rememberLogin = false;
 
   final String _langPath = "appLanguage";
   final String _userPath = "username";
   final String _passwordPath = "password";
+  final String _rememberLogin = "rememberLogin";
 
   void start() async {
     language = await getLanguage();
+    rememberLogin = await getRememberLogin();
   }
 
   Future<bool> saveLanguage(String newLanguage) async {
@@ -44,5 +47,14 @@ class StorageSettings {
     return user;
   }
 
+  Future saveRememberLogin(bool remember) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_rememberLogin, remember ? "true" : "false");
+  }
+
+  Future<bool> getRememberLogin() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_rememberLogin) == "true";
+  }
 
 }

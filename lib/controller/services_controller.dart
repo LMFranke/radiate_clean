@@ -45,4 +45,11 @@ class ServicesController extends ChangeNotifier {
       getAllServices();
     },);
   }
+
+  Future deleteService(int id) async {
+    await db.deleteService(id).then((value) {
+      getAllServices();
+    },);
+  }
+
 }

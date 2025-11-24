@@ -7,10 +7,12 @@ class FullScreenDialogAddService extends StatefulWidget {
   const FullScreenDialogAddService({super.key});
 
   @override
-  State<FullScreenDialogAddService> createState() => _FullScreenDialogAddServiceState();
+  State<FullScreenDialogAddService> createState() =>
+      _FullScreenDialogAddServiceState();
 }
 
-class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService> {
+class _FullScreenDialogAddServiceState
+    extends State<FullScreenDialogAddService> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController allDayValueController = TextEditingController();
   final TextEditingController halfDayValueController = TextEditingController();
@@ -49,9 +51,7 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
               ),
               controller: descriptionController,
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             TextFormField(
               decoration: InputDecoration(
                 label: Text(Translate.getString(Texts.value_all_day)),
@@ -63,11 +63,11 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                 suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: allDayValueController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             TextFormField(
               decoration: InputDecoration(
                 label: Text(Translate.getString(Texts.value_half_day)),
@@ -79,11 +79,11 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                 suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: halfDayValueController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
@@ -92,20 +92,26 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                     _allDayValue = double.parse(allDayValueController.text);
                     _halfDayValue = double.parse(halfDayValueController.text);
 
-                    controller.addService(descriptionController.text, _allDayValue, _halfDayValue,).then(
-                      (value) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            content: Text(
-                              Translate.getString(Texts.success_add_service),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                            backgroundColor: Colors.green,
-                          ),
-                        );
-                      },
-                    );
-                    Navigator.pop(context);
+                    controller.addService(
+                          descriptionController.text,
+                          _allDayValue,
+                          _halfDayValue,
+                        ).then((value) {
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  Translate.getString(
+                                    Texts.success_add_service,
+                                  ),
+                                  style: const TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          }
+                        });
                   } catch (e) {
                     print(e);
                   }
@@ -113,9 +119,7 @@ class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService>
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.all(12)),
                   elevation: WidgetStatePropertyAll(5),
-                  backgroundColor: WidgetStatePropertyAll(
-                    Colors.blue,
-                  ),
+                  backgroundColor: WidgetStatePropertyAll(Colors.blue),
                 ),
                 child: Text(
                   Translate.getString(Texts.add),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:readiate_clean/components/full_screen_dialog_add_client.dart';
-import 'package:readiate_clean/components/full_screen_dialog_add_event.dart';
-import 'package:readiate_clean/components/full_screen_dialog_add_service.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_add_client.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_add_event.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_add_service.dart';
 import 'package:readiate_clean/view/calendar_screen.dart';
 import 'package:readiate_clean/view/clients_screen.dart';
 import 'package:readiate_clean/view/report_screen.dart';

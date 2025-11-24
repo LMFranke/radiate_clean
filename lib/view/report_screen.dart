@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-import '../components/appbar_app.dart';
-import '../components/report_dialog.dart';
+import '../components/util/appbar_app.dart';
+import '../components/dialog/dialog_report_filter.dart';
 import '../controller/report_controller.dart';
 import '../model/data_sample.dart';
 import '../translate/strings.dart';

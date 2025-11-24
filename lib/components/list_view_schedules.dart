@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readiate_clean/components/full_screen_dialog_info_event.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_info_event.dart';
 import 'package:readiate_clean/controller/event_controller.dart';
 import 'package:readiate_clean/translate/strings.dart';
 

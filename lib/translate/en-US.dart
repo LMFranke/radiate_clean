@@ -291,6 +291,14 @@ class LanguageEnglish {
         {
           return "Cancel";
         }
+      case Texts.remember_me:
+        {
+          return "Remember me";
+        }
+      case Texts.make_call_tip:
+        {
+          return "Make a call";
+        }
       }
   }
 }

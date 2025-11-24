@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readiate_clean/components/full_screen_dialog_edit_client.dart';
-import 'package:readiate_clean/components/full_screen_dialog_info_client.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_edit_client.dart';
+import 'package:readiate_clean/components/dialog/full_screen_dialog_info_client.dart';
 import 'package:readiate_clean/controller/clients_controller.dart';
 import 'package:readiate_clean/database/database.dart';
 import 'package:readiate_clean/translate/strings.dart';
 
-import '../model/enum_pop_menu_options.dart';
+import '../model/enum/enum_pop_menu_options.dart';
 
 class ListTileClient extends StatelessWidget {
 

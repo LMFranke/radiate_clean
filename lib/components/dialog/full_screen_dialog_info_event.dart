@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readiate_clean/model/event.dart';
 
-import '../translate/strings.dart';
+import '../../translate/strings.dart';
 
 class FullScreenDialogInfoEvent extends StatelessWidget {
 

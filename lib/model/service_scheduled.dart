@@ -1,4 +1,4 @@
-import 'package:readiate_clean/model/enum_type_of_work.dart';
+import 'package:readiate_clean/model/enum/enum_type_of_work.dart';
 
 class ServiceScheduled {
   int id;

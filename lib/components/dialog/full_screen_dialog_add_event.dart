@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readiate_clean/components/snack_bar_info.dart';
+import 'package:readiate_clean/components/util/snack_bar_info.dart';
 import 'package:readiate_clean/controller/event_controller.dart';
 import 'package:readiate_clean/database/database.dart';
 
-import '../model/enum_type_of_work.dart';
-import '../translate/strings.dart';
+import '../../model/enum/enum_type_of_work.dart';
+import '../../translate/strings.dart';
 
 class FullScreenDialogAddEvent extends StatefulWidget {
   const FullScreenDialogAddEvent({super.key});
 
   @override
-  State<FullScreenDialogAddEvent> createState() => _FullScreenDialogAddEventState();
+  State<FullScreenDialogAddEvent> createState() =>
+      _FullScreenDialogAddEventState();
 }
 
 class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
@@ -28,9 +29,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
     final eventController = context.read<EventController>();
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          Translate.getString(Texts.add_event_title),
-        ),
+        title: Text(Translate.getString(Texts.add_event_title)),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -51,12 +50,16 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
-                    return Text(Translate.getString(Texts.error_to_load_clients));
+                    return Text(
+                      Translate.getString(Texts.error_to_load_clients),
+                    );
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return TextField(
                       readOnly: true,
                       decoration: InputDecoration(
-                        hintText: Translate.getString(Texts.no_data_found_client),
+                        hintText: Translate.getString(
+                          Texts.no_data_found_client,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -90,21 +93,23 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   }
                 },
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               FutureBuilder(
                 future: eventController.getDropButtonServices(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const CircularProgressIndicator();
                   } else if (snapshot.hasError) {
-                    return Text(Translate.getString(Texts.error_to_load_services));
+                    return Text(
+                      Translate.getString(Texts.error_to_load_services),
+                    );
                   } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     return TextField(
                       readOnly: true,
                       decoration: InputDecoration(
-                        hintText: Translate.getString(Texts.no_data_found_service),
+                        hintText: Translate.getString(
+                          Texts.no_data_found_service,
+                        ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -137,9 +142,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   }
                 },
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               TextFormField(
                 decoration: InputDecoration(
                   label: Text(Translate.getString(Texts.do_a_description)),
@@ -151,9 +154,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   suffixIcon: const Icon(Icons.edit),
                 ),
               ),
-              const SizedBox(
-                height: 35,
-              ),
+              const SizedBox(height: 35),
               TextFormField(
                 decoration: InputDecoration(
                   label: Text(Translate.getString(Texts.select_date)),
@@ -171,17 +172,14 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                     context: context,
                     firstDate: DateTime(2020),
                     lastDate: DateTime(2030),
-                  ).then(
-                    (dateSelected) {
-                      pickerDateController.text = "${dateSelected?.day}/${dateSelected?.month}/${dateSelected?.year}";
-                      eventController.selectedDate = dateSelected;
-                    },
-                  );
+                  ).then((dateSelected) {
+                    pickerDateController.text =
+                        "${dateSelected?.day}/${dateSelected?.month}/${dateSelected?.year}";
+                    eventController.selectedDate = dateSelected;
+                  });
                 },
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               Text(
                 Translate.getString(Texts.select_work_type),
                 style: const TextStyle(fontSize: 18),
@@ -192,16 +190,12 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                     segments: [
                       ButtonSegment(
                         value: TypeOfWork.allDay,
-                        label: Text(
-                          Translate.getString(Texts.all_day),
-                        ),
+                        label: Text(Translate.getString(Texts.all_day)),
                         icon: const Icon(Icons.sunny),
                       ),
                       ButtonSegment(
                         value: TypeOfWork.halfDay,
-                        label: Text(
-                          Translate.getString(Texts.half_day),
-                        ),
+                        label: Text(Translate.getString(Texts.half_day)),
                         icon: const Icon(Icons.sunny_snowing),
                       ),
                     ],
@@ -214,9 +208,7 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               Text(
                 Translate.getString(Texts.select_frequency),
                 style: const TextStyle(fontSize: 18),
@@ -227,17 +219,23 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                     segments: [
                       ButtonSegment(
                         value: Frequency.unique,
-                        label: Text(Translate.getString(Texts.frequency_unique)),
+                        label: Text(
+                          Translate.getString(Texts.frequency_unique),
+                        ),
                         icon: const Icon(Icons.event),
                       ),
                       ButtonSegment(
                         value: Frequency.weekly,
-                        label: Text(Translate.getString(Texts.frequency_weekly)),
+                        label: Text(
+                          Translate.getString(Texts.frequency_weekly),
+                        ),
                         icon: const Icon(Icons.calendar_view_week),
                       ),
                       ButtonSegment(
                         value: Frequency.monthly,
-                        label: Text(Translate.getString(Texts.frequency_monthly)),
+                        label: Text(
+                          Translate.getString(Texts.frequency_monthly),
+                        ),
                         icon: const Icon(Icons.calendar_month),
                       ),
                     ],
@@ -250,33 +248,34 @@ class _FullScreenDialogAddEventState extends State<FullScreenDialogAddEvent> {
                   );
                 },
               ),
-              const SizedBox(
-                height: 25,
-              ),
+              const SizedBox(height: 25),
               SizedBox(
                 width: double.infinity,
                 child: FilledButton(
                   onPressed: () {
                     if (eventController.validateInput(context)) {
-                      Navigator.pop(context);
+                      eventController
+                          .addEvent(selectedType, selectedFrequency)
+                          .then((value) {
+                            if (context.mounted) {
+                              Navigator.pop(context);
 
-                      eventController.addEvent(selectedType, selectedFrequency).then(
-                            (value) {
-                          SnackBarInfo(
-                              text: Translate.getString(Texts.success_add_event),
-                              context: context,
-                              textColor: Colors.white,
-                              backgroundColor: Colors.green);
-                        },
-                      );
+                              SnackBarInfo(
+                                text: Translate.getString(
+                                  Texts.success_add_event,
+                                ),
+                                context: context,
+                                textColor: Colors.white,
+                                backgroundColor: Colors.green,
+                              );
+                            }
+                          });
                     }
                   },
                   style: const ButtonStyle(
                     padding: WidgetStatePropertyAll(EdgeInsets.all(12)),
                     elevation: WidgetStatePropertyAll(5),
-                    backgroundColor: WidgetStatePropertyAll(
-                      Colors.deepPurple,
-                    ),
+                    backgroundColor: WidgetStatePropertyAll(Colors.deepPurple),
                   ),
                   child: Text(
                     Translate.getString(Texts.create),

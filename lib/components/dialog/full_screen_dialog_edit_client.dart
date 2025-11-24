@@ -1,24 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readiate_clean/components/snack_bar_info.dart';
 
-import '../controller/clients_controller.dart';
-import '../translate/strings.dart';
+import '../../controller/clients_controller.dart';
+import '../../database/database.dart';
+import '../../translate/strings.dart';
 
-class FullScreenDialogAddClient extends StatefulWidget {
-  const FullScreenDialogAddClient({super.key});
+class FullScreenDialogEditClient extends StatefulWidget {
+  const FullScreenDialogEditClient({super.key, required this.client});
+
+  final ClientsTableData client;
 
   @override
-  State<FullScreenDialogAddClient> createState() => _FullScreenDialogAddClientState();
-
+  State<FullScreenDialogEditClient> createState() =>
+      _FullScreenDialogEditClientState();
 }
 
-class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
-
+class _FullScreenDialogEditClientState
+    extends State<FullScreenDialogEditClient> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController preferencesController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    nameController.text = widget.client.name;
+    phoneNumberController.text = widget.client.phoneNumber;
+    addressController.text = widget.client.address;
+    preferencesController.text = widget.client.preferences;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +38,7 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Translate.getString(Texts.add_client_title)),
+        title: Text(Translate.getString(Texts.edit_client_title)),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {
@@ -52,9 +64,7 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
               ),
               controller: nameController,
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             TextFormField(
               decoration: InputDecoration(
                 label: Text(Translate.getString(Texts.phone_number)),
@@ -68,9 +78,7 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
               controller: phoneNumberController,
               keyboardType: TextInputType.phone,
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            const SizedBox(height: 15),
             TextFormField(
               decoration: InputDecoration(
                 label: Text(Translate.getString(Texts.address)),
@@ -83,9 +91,7 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
               ),
               controller: addressController,
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             TextFormField(
               decoration: InputDecoration(
                 label: Text(Translate.getString(Texts.preferences)),
@@ -98,41 +104,38 @@ class _FullScreenDialogAddClientState extends State<FullScreenDialogAddClient> {
               ),
               controller: preferencesController,
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             SizedBox(
               width: double.infinity,
               child: FilledButton(
                 onPressed: () {
-                  if (nameController.text.isEmpty || addressController.text.isEmpty || phoneNumberController.text.isEmpty) {
+                  if (nameController.text.isEmpty ||
+                      addressController.text.isEmpty ||
+                      phoneNumberController.text.isEmpty) {
                     return;
                   }
 
-                  controller.addClient(
-                    nameController.text,
-                    addressController.text,
-                    phoneNumberController.text,
-                    preferencesController.text,
-                  ).then((value) {
-                    SnackBarInfo(
-                        text: Translate.getString(Texts.success_add_client),
-                        context: context,
-                        textColor: Colors.white,
-                        backgroundColor: Colors.green,
-                      );
-                  },);
-                  Navigator.pop(context);
+                  controller
+                      .updateClient(
+                        widget.client.id,
+                        nameController.text,
+                        phoneNumberController.text,
+                        addressController.text,
+                        preferencesController.text,
+                      )
+                      .then((value) {
+                        if (context.mounted) {
+                          Navigator.pop(context);
+                        }
+                      });
                 },
                 style: const ButtonStyle(
                   padding: WidgetStatePropertyAll(EdgeInsets.all(12)),
                   elevation: WidgetStatePropertyAll(5),
-                  backgroundColor: WidgetStatePropertyAll(
-                    Colors.blue,
-                  ),
+                  backgroundColor: WidgetStatePropertyAll(Colors.blue),
                 ),
                 child: Text(
-                  Translate.getString(Texts.add),
+                  Translate.getString(Texts.save),
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,

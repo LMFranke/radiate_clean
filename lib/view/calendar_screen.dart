@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:readiate_clean/components/appbar_app.dart';
+import 'package:readiate_clean/components/util/appbar_app.dart';
 import 'package:readiate_clean/components/list_view_schedules.dart';
 import 'package:readiate_clean/controller/event_controller.dart';
 

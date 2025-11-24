@@ -78,6 +78,8 @@ enum Texts {
   end_date,
   apply,
   cancel,
+  remember_me,
+  make_call_tip,
 
 }
 

@@ -291,6 +291,14 @@ class LanguageBrazilianPortuguese {
         {
           return "Cancelar";
         }
+      case Texts.remember_me:
+        {
+          return "Manter logado";
+        }
+      case Texts.make_call_tip:
+        {
+          return "Realizar ligação";
+        }
     }
   }
 }

@@ -42,6 +42,7 @@ dependencies:
   drift: ^2.21.0
   drift_flutter:
   path_provider: ^2.0.11
+  url_launcher: ^6.3.0
 
 
 dev_dependencies:

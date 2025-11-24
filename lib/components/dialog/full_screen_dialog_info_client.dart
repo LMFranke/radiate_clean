@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:readiate_clean/database/database.dart';
 import 'package:readiate_clean/translate/strings.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FullScreenDialogInfoClient extends StatelessWidget {
   const FullScreenDialogInfoClient({super.key, required this.client});
@@ -47,7 +48,13 @@ class FullScreenDialogInfoClient extends StatelessWidget {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: const Icon(Icons.phone),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.phone, color: Colors.green),
+                  tooltip: Translate.getString(Texts.make_call_tip),
+                  onPressed: () {
+                    _makePhoneCall(client.phoneNumber);
+                  },
+                ),
               ),
               readOnly: true,
             ),
@@ -86,4 +93,15 @@ class FullScreenDialogInfoClient extends StatelessWidget {
       ),
     );
   }
+
+  Future<void> _makePhoneCall(String phoneNumber) async {
+    final Uri launchUri = Uri(
+      scheme: 'tel',
+      path: phoneNumber.trim(),
+    );
+    if (!await launchUrl(launchUri)) {
+      throw Exception('Error while trying to realize the call $phoneNumber');
+    }
+  }
+
 }
