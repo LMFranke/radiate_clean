@@ -61,6 +61,7 @@ enum Texts {
   success_add_client,
   success_add_service,
   success_add_event,
+  success_updated,
 
   language_config,
   logout,
@@ -81,6 +82,19 @@ enum Texts {
   remember_me,
   make_call_tip,
 
+  settings_title,
+  enable_login,
+  general,
+  success_add_login,
+
+  appearance,
+  theme_system,
+  theme_light,
+  theme_dark,
+
+  cancel_event_title,
+  cancel_event_message,
+  event_canceled,
 }
 
 class Translate {

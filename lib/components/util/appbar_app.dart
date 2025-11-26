@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../translate/strings.dart';
-import '../../view/language_screen.dart';
+import '../../view/setting_screen.dart';
 import '../../view/login_screen.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -22,12 +21,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                 value: 0,
                 child: Row(
                   children: [
-                    const Icon(Icons.language),
+                    const Icon(Icons.settings),
                     const SizedBox(
                       width: 5,
                     ),
                     Text(
-                      Translate.getString(Texts.language_config),
+                      Translate.getString(Texts.settings_title),
                     ),
                   ],
                 ),
@@ -56,7 +55,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const LanguageScreen(),
+                      builder: (context) => const SettingScreen(),
                     ),
                   );
                 }

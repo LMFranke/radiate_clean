@@ -4,301 +4,262 @@ class LanguageBrazilianPortuguese {
   String getTranslate(Texts text) {
     switch (text) {
       case Texts.client_title:
-        {
-          return "Clientes";
-        }
+        return "Clientes";
+
       case Texts.home_title:
-        {
-          return "Home";
-        }
+        return "Home";
+
       case Texts.service_title:
-        {
-          return "Serviços";
-        }
+        return "Serviços";
+
       case Texts.report_title:
-        {
-          return "Relatórios";
-        }
+        return "Relatórios";
+
       case Texts.add_client_title:
-        {
-          return "Adicionar cliente";
-        }
+        return "Adicionar cliente";
+
       case Texts.add_service_title:
-        {
-          return "Adicionar serviço";
-        }
+        return "Adicionar serviço";
+
       case Texts.add_event_title:
-        {
-          return "Adicionar evento";
-        }
+        return "Adicionar evento";
+
       case Texts.save:
-        {
-          return "Salvar";
-        }
+        return "Salvar";
+
       case Texts.delete:
-        {
-          return "Deletar";
-        }
+        return "Deletar";
+
       case Texts.edit:
-        {
-          return "Editar";
-        }
+        return "Editar";
+
       case Texts.confirm:
-        {
-          return "Confirmar";
-        }
+        return "Confirmar";
+
       case Texts.add:
-        {
-          return "Adicionar";
-        }
+        return "Adicionar";
+
       case Texts.create:
-        {
-          return "Criar";
-        }
+        return "Criar";
+
       case Texts.frequency_unique:
-        {
-          return "Única";
-        }
+        return "Única";
+
       case Texts.frequency_weekly:
-        {
-          return "Semanalmente";
-        }
+        return "Semanalmente";
+
       case Texts.frequency_monthly:
-        {
-          return "Mensalmente";
-        }
+        return "Mensalmente";
+
       case Texts.name:
-        {
-          return "Nome";
-        }
+        return "Nome";
+
       case Texts.phone_number:
-        {
-          return "Número de telefone";
-        }
+        return "Número de telefone";
+
       case Texts.address:
-        {
-          return "Endereço";
-        }
+        return "Endereço";
+
       case Texts.description:
-        {
-          return "Descrição";
-        }
+        return "Descrição";
+
       case Texts.value_all_day:
-        {
-          return "Valor dia todo";
-        }
+        return "Valor dia todo";
+
       case Texts.value_half_day:
-        {
-          return "Valor meio dia";
-        }
+        return "Valor meio dia";
+
       case Texts.extra_value:
-        {
-          return "Valor extra";
-        }
+        return "Valor extra";
+
       case Texts.select_work_type:
-        {
-          return "Selecione o tipo";
-        }
+        return "Selecione o tipo";
+
       case Texts.select_frequency:
-        {
-          return "Selecione a frequência";
-        }
+        return "Selecione a frequência";
+
       case Texts.no_data_found_client:
-        {
-          return "Nenhum cliente encontrado";
-        }
+        return "Nenhum cliente encontrado";
+
       case Texts.no_data_found_service:
-        {
-          return "Nenhum serviço encontrado";
-        }
+        return "Nenhum serviço encontrado";
+
       case Texts.no_data_found_event:
-        {
-          return "Nenhum event encontrado";
-        }
+        return "Nenhum event encontrado";
+
       case Texts.invalid_input_name:
-        {
-          return "Campo nome inválido";
-        }
+        return "Campo nome inválido";
+
       case Texts.invalid_input_phone_number:
-        {
-          return "Campo número de telefone inválido";
-        }
+        return "Campo número de telefone inválido";
+
       case Texts.invalid_input_address:
-        {
-          return "Campo endereço inválido";
-        }
+        return "Campo endereço inválido";
+
       case Texts.invalid_input_date:
-        {
-          return "Campo data inválido";
-        }
+        return "Campo data inválido";
+
       case Texts.invalid_input_is_empty:
-        {
-          return "Campo está vazio";
-        }
+        return "Campo está vazio";
+
       case Texts.success_add_client:
-        {
-          return "Cliente adicionado com sucesso";
-        }
+        return "Cliente adicionado com sucesso";
+
       case Texts.success_add_service:
-        {
-          return "Serviço adicionado com sucesso";
-        }
+        return "Serviço adicionado com sucesso";
+
       case Texts.success_add_event:
-        {
-          return "Evento adicionado com sucesso";
-        }
+        return "Evento adicionado com sucesso";
+
+      case Texts.success_add_login:
+        return "Login criado com sucesso";
+
       case Texts.all_day:
-        {
-          return "Dia todo";
-        }
+        return "Dia todo";
+
       case Texts.half_day:
-        {
-          return "Meio dia";
-        }
+        return "Meio dia";
+
       case Texts.no_data_found_upcoming_event:
-        {
-          return "Nenhum evento próximo encontrado";
-        }
+        return "Nenhum evento próximo encontrado";
+
       case Texts.error_to_load_clients:
-        {
-          return "Erro ao carregar clientes";
-        }
+        return "Erro ao carregar clientes";
+
       case Texts.error_to_load_services:
-        {
-          return "Erro ao carregar serviços";
-        }
+        return "Erro ao carregar serviços";
+
       case Texts.info:
-        {
-          return "Info";
-        }
+        return "Info";
+
       case Texts.select_client:
-        {
-          return "Selecione um cliente";
-        }
+        return "Selecione um cliente";
+
       case Texts.select_service:
-        {
-          return "Selecione um serviço";
-        }
+        return "Selecione um serviço";
+
       case Texts.select_date:
-        {
-          return "Selecione uma data";
-        }
+        return "Selecione uma data";
+
       case Texts.do_a_description:
-        {
-          return "Adicione uma descrição";
-        }
+        return "Adicione uma descrição";
+
       case Texts.client:
-        {
-          return "Cliente";
-        }
+        return "Cliente";
+
       case Texts.event:
-        {
-          return "Evento";
-        }
+        return "Evento";
+
       case Texts.report:
-        {
-          return "Relatório";
-        }
+        return "Relatório";
+
       case Texts.service:
-        {
-          return "Serviço";
-        }
+        return "Serviço";
+
       case Texts.invalid_input_client_not_selected:
-        {
-          return "Cliente não selecionado";
-        }
+        return "Cliente não selecionado";
+
       case Texts.invalid_input_service_not_selected:
-        {
-          return "Serviço não selecionado";
-        }
+        return "Serviço não selecionado";
+
       case Texts.edit_client_title:
-        {
-          return "Editar cliente";
-        }
+        return "Editar cliente";
+
       case Texts.edit_event_title:
-        {
-          return "Editar evento";
-        }
+        return "Editar evento";
+
       case Texts.edit_service_title:
-        {
-          return "Editar serviço";
-        }
+        return "Editar serviço";
+
       case Texts.preferences:
-        {
-          return "Preferências";
-        }
+        return "Preferências";
+
       case Texts.switch_language_title:
-        {
-          return "Idiomas";
-        }
+        return "Idiomas";
+
       case Texts.language_config:
-        {
-          return "Mudar idioma";
-        }
+        return "Mudar idioma";
+
       case Texts.logout:
-        {
-          return "Sair";
-        }
+        return "Sair";
+
       case Texts.brazilian_portuguese:
-        {
-          return "Português - Brasileiro";
-        }
+        return "Português - Brasileiro";
+
       case Texts.english:
-        {
-          return "Inglês";
-        }
+        return "Inglês";
+
       case Texts.login_password_field_invalid:
-        {
-          return "Login ou senha está inválido";
-        }
+        return "Login ou senha está inválido";
+
       case Texts.login:
-        {
-          return "Login";
-        }
+        return "Login";
+
       case Texts.password:
-        {
-          return "Senha";
-        }
+        return "Senha";
+
       case Texts.report_filter:
-        {
-          return "Filtrar Relatório";
-        }
+        return "Filtrar Relatório";
+
       case Texts.filter_by_client:
-        {
-          return "Por cliente";
-        }
+        return "Por cliente";
+
       case Texts.filter_by_service:
-        {
-          return "Por serviço";
-        }
+        return "Por serviço";
+
       case Texts.group_by:
-        {
-          return "Agrupar por";
-        }
+        return "Agrupar por";
+
       case Texts.start_date:
-        {
-          return "Data inicial";
-        }
+        return "Data inicial";
+
       case Texts.end_date:
-        {
-          return "Data final";
-        }
+        return "Data final";
+
       case Texts.apply:
-        {
-          return "Aplicar";
-        }
+        return "Aplicar";
+
       case Texts.cancel:
-        {
-          return "Cancelar";
-        }
+        return "Cancelar";
+
       case Texts.remember_me:
-        {
-          return "Manter logado";
-        }
+        return "Manter logado";
+
       case Texts.make_call_tip:
-        {
-          return "Realizar ligação";
-        }
+        return "Realizar ligação";
+
+      case Texts.settings_title:
+        return "Configurações";
+
+      case Texts.enable_login:
+        return "Habilitar tela de login";
+
+      case Texts.general:
+        return "Geral";
+
+      case Texts.appearance:
+        return "Aparência";
+
+      case Texts.theme_system:
+        return "Padrão do Sistema";
+
+      case Texts.theme_light:
+        return "Claro";
+
+      case Texts.theme_dark:
+        return "Escuro";
+
+      case Texts.cancel_event_title:
+        return "Cancelar Evento";
+
+      case Texts.cancel_event_message:
+        return "Tem certeza que deseja cancelar este evento?";
+
+      case Texts.event_canceled:
+        return "Evento cancelado com sucesso";
+
+      case Texts.success_updated:
+        return "Editado com sucesso";
     }
   }
 }

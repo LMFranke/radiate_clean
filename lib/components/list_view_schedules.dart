@@ -16,47 +16,100 @@ class ListViewSchedules extends StatelessWidget {
     return SingleChildScrollView(
       child: eventController.eventListSortedByDate.isNotEmpty
           ? ListView.builder(
-        itemCount: eventController.eventListSortedByDate.length,
-        shrinkWrap: true,
-        itemBuilder: (context, index) {
-          Event eventIndex = eventController.eventListSortedByDate[index];
-      
-          return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text(eventIndex.client.name),
-                        subtitle: Text(
-                          "${eventIndex.serviceScheduled.date.day}/"
-                          "${eventIndex.serviceScheduled.date.month}/"
-                          "${eventIndex.serviceScheduled.date.year} | "
-                          "${eventIndex.serviceScheduled.isHalfDay == 1
-                              ? Translate.getString(Texts.all_day)
-                              : Translate.getString(Texts.half_day)}",
-                        ),
-                        shape: const Border(
-                          bottom: BorderSide(),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FullScreenDialogInfoEvent(event: eventIndex),
+              itemCount: eventController.eventListSortedByDate.length,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                Event eventIndex = eventController.eventListSortedByDate[index];
+
+                return Dismissible(
+                  key: ValueKey(eventIndex.serviceScheduled.id),
+
+                  direction: DismissDirection.endToStart,
+
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: const Icon(Icons.cancel, color: Colors.white),
+                  ),
+
+                  confirmDismiss: (direction) async {
+                    return await showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(
+                            Translate.getString(Texts.cancel_event_title),
+                          ),
+                          content: Text(
+                            Translate.getString(Texts.cancel_event_message),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: Text(Translate.getString(Texts.cancel)),
                             ),
-                          );
-                        },
+                            TextButton(
+                              onPressed: () => Navigator.of(context).pop(true),
+                              child: Text(Translate.getString(Texts.confirm)),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+
+                  onDismissed: (direction) {
+                    context.read<EventController>().cancelEvent(
+                      eventIndex.serviceScheduled.id,
+                    );
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          Translate.getString(Texts.event_canceled),
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Colors.green,
                       ),
-                      const SizedBox(
-                        height: 6,
-                      )
-                    ],
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(eventIndex.client.name),
+                          subtitle: Text(
+                            "${eventIndex.serviceScheduled.date.day}/"
+                            "${eventIndex.serviceScheduled.date.month}/"
+                            "${eventIndex.serviceScheduled.date.year} | "
+                            "${eventIndex.serviceScheduled.isHalfDay == 1 ? Translate.getString(Texts.all_day) : Translate.getString(Texts.half_day)}",
+                          ),
+                          shape: const Border(bottom: BorderSide()),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => FullScreenDialogInfoEvent(
+                                  event: eventIndex,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 6),
+                      ],
+                    ),
                   ),
                 );
               },
             )
           : Center(
-              child: Text(Translate.getString(Texts.no_data_found_upcoming_event)),
+              child: Text(
+                Translate.getString(Texts.no_data_found_upcoming_event),
+              ),
             ),
     );
   }

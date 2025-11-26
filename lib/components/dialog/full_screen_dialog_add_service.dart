@@ -11,8 +11,7 @@ class FullScreenDialogAddService extends StatefulWidget {
       _FullScreenDialogAddServiceState();
 }
 
-class _FullScreenDialogAddServiceState
-    extends State<FullScreenDialogAddService> {
+class _FullScreenDialogAddServiceState extends State<FullScreenDialogAddService> {
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController allDayValueController = TextEditingController();
   final TextEditingController halfDayValueController = TextEditingController();
@@ -91,6 +90,10 @@ class _FullScreenDialogAddServiceState
                   try {
                     _allDayValue = double.parse(allDayValueController.text);
                     _halfDayValue = double.parse(halfDayValueController.text);
+
+                    if (_allDayValue < 0 || _halfDayValue < 0) {
+                      return;
+                    }
 
                     controller.addService(
                           descriptionController.text,

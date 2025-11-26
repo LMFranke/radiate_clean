@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:readiate_clean/components/dialog/full_screen_dialog_add_client.dart';
-import 'package:readiate_clean/components/dialog/full_screen_dialog_add_event.dart';
-import 'package:readiate_clean/components/dialog/full_screen_dialog_add_service.dart';
 import 'package:readiate_clean/view/calendar_screen.dart';
 import 'package:readiate_clean/view/clients_screen.dart';
 import 'package:readiate_clean/view/report_screen.dart';
 import 'package:readiate_clean/view/services_screen.dart';
+
+import 'dialog/full_screen_dialog_add_client.dart';
+import 'dialog/full_screen_dialog_add_event.dart';
+import 'dialog/full_screen_dialog_add_service.dart';
 
 class MainNavigationBottom extends StatefulWidget {
   const MainNavigationBottom({super.key});
@@ -16,24 +17,46 @@ class MainNavigationBottom extends StatefulWidget {
 
 class _MainNavigationBottomState extends State<MainNavigationBottom> {
   int _currentIndexScreen = 0;
+  late PageController _pageController;
 
-  _changeScreen(int index) {
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentIndexScreen);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _onBottomNavTapped(int index) {
     setState(() {
       _currentIndexScreen = index;
     });
+    _pageController.jumpToPage(index);
   }
 
   @override
   Widget build(BuildContext context) {
-    late final List screenList = [
-      CalendarScreen(),
+    final List<Widget> screenList = [
+      const CalendarScreen(),
       const ReportScreen(),
-      ServicesScreen(),
-      ClientsScreen(),
+      const ServicesScreen(),
+      const ClientsScreen(),
     ];
 
     return Scaffold(
-      body: screenList[_currentIndexScreen],
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndexScreen = index;
+          });
+        },
+        children: screenList,
+      ),
       bottomNavigationBar: BottomAppBar(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         height: 60,
@@ -51,85 +74,48 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _currentIndexScreen == 0
-                  ? IconButton(
-                      onPressed: () {
-                        _changeScreen(0);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(
-                        Icons.calendar_today,
-                        color: Colors.blue,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        _changeScreen(0);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(Icons.calendar_today),
-                    ),
-              _currentIndexScreen == 1
-                  ? IconButton(
-                      onPressed: () {
-                        _changeScreen(1);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(
-                        Icons.access_time_filled,
-                        color: Colors.blue,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        _changeScreen(1);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(
-                        Icons.access_time,
-                      ),
-                    ),
-              _currentIndexScreen == 2
-                  ? IconButton(
-                      onPressed: () {
-                        _changeScreen(2);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(
-                        Icons.notifications,
-                        color: Colors.blue,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        _changeScreen(2);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(Icons.notifications_none_outlined),
-                    ),
-              _currentIndexScreen == 3
-                  ? IconButton(
-                      onPressed: () {
-                        _changeScreen(3);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(
-                        Icons.person,
-                        color: Colors.blue,
-                      ),
-                    )
-                  : IconButton(
-                      onPressed: () {
-                        _changeScreen(3);
-                      },
-                      highlightColor: Colors.deepPurpleAccent,
-                      icon: const Icon(Icons.person_2_outlined),
-                    ),
+              IconButton(
+                onPressed: () => _onBottomNavTapped(0),
+                icon: Icon(
+                  _currentIndexScreen == 0
+                      ? Icons.calendar_today
+                      : Icons.calendar_today_outlined,
+                  color: _currentIndexScreen == 0 ? Colors.deepPurpleAccent : null,
+                ),
+              ),
+              IconButton(
+                onPressed: () => _onBottomNavTapped(1),
+                icon: Icon(
+                  _currentIndexScreen == 1
+                      ? Icons.access_time_filled
+                      : Icons.access_time,
+                  color: _currentIndexScreen == 1 ? Colors.deepPurpleAccent : null,
+                ),
+              ),
+              const SizedBox(width: 40),
+              IconButton(
+                onPressed: () => _onBottomNavTapped(2),
+                icon: Icon(
+                  _currentIndexScreen == 2
+                      ? Icons.notifications
+                      : Icons.notifications_none_outlined,
+                  color: _currentIndexScreen == 2 ? Colors.deepPurpleAccent : null,
+                ),
+              ),
+              IconButton(
+                onPressed: () => _onBottomNavTapped(3),
+                icon: Icon(
+                  _currentIndexScreen == 3
+                      ? Icons.person
+                      : Icons.person_2_outlined,
+                  color: _currentIndexScreen == 3 ? Colors.deepPurpleAccent : null,
+                ),
+              ),
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: _currentIndexScreen != 1 ? FloatingActionButton(
         shape: const CircleBorder(),
         backgroundColor: Colors.deepPurpleAccent,
         foregroundColor: Colors.white,
@@ -138,38 +124,32 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
         onPressed: () {
           switch (_currentIndexScreen) {
             case 0:
-              {
-                showFullScreenDialogAddEvent();
-                break;
-              }
+              showFullScreenDialogAddEvent(context);
+              break;
             case 2:
-              {
-                showFullScreenDialogAddService();
-                break;
-              }
+              showFullScreenDialogAddService(context);
+              break;
             case 3:
-              {
-                showFullScreenDialogAddClient();
-                break;
-              }
+              showFullScreenDialogAddClient(context);
+              break;
           }
         },
-      ),
+      ) : null,
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  void showFullScreenDialogAddEvent() {
+  void showFullScreenDialogAddEvent(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
-          return FullScreenDialogAddEvent();
+          return const FullScreenDialogAddEvent();
         },
       ),
     );
   }
 
-  void showFullScreenDialogAddClient() {
+  void showFullScreenDialogAddClient(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) {
@@ -179,7 +159,7 @@ class _MainNavigationBottomState extends State<MainNavigationBottom> {
     );
   }
 
-  void showFullScreenDialogAddService() {
+  void showFullScreenDialogAddService(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         fullscreenDialog: true,

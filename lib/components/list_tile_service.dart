@@ -6,6 +6,7 @@ import 'package:readiate_clean/database/database.dart';
 import '../controller/services_controller.dart';
 import '../model/enum/enum_pop_menu_options.dart';
 import '../translate/strings.dart';
+import 'dialog/full_screen_dialog_info_service.dart';
 
 class ListTileService extends StatelessWidget {
 
@@ -80,8 +81,16 @@ class ListTileService extends StatelessWidget {
                   }
                 case PopMenuOptions.info:
                   {
-                    // pageController.accessCustomerPageOption(customer, context);
-                  }
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        fullscreenDialog: true,
+                        builder: (context) {
+                          return FullScreenDialogInfoService(
+                            service: service,
+                          );
+                        },
+                      ),
+                    );                  }
                 case PopMenuOptions.remove:
                   {
                     controller.deleteService(service.id);

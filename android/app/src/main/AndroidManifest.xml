@@ -6,9 +6,9 @@
         </intent>
     </queries>
     <application
-        android:label="readiate_clean"
+        android:label="Readiate Clean"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"

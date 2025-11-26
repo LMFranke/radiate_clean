@@ -22,33 +22,42 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       appBar: MyAppBar(title: Texts.home_title),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             Container(
               decoration: BoxDecoration(
-                  color: Colors.grey[100],
+                  color: isDark ? Colors.grey[850] : Colors.grey[100],
                   borderRadius: const BorderRadius.all(
                     Radius.circular(8),
                   )),
-              child: CalendarDatePicker(
-                currentDate: DateTime.now(),
-                initialDate: DateTime.now(),
-                firstDate: DateTime.utc(2020),
-                lastDate: DateTime.utc(2030),
-                onDateChanged: (selectedDay) {
-                  context.read<EventController>().sortListBySelectedDay(selectedDay);
-                },
+              child: Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme: Theme.of(context).colorScheme.copyWith(
+                    primary: Colors.deepPurple,
+                    onPrimary: Colors.green,
+                    onSurface: isDark ? Colors.white : Colors.black,
+                  ),
+                ),
+                child: CalendarDatePicker(
+                  currentDate: DateTime.now(),
+                  initialDate: DateTime.now(),
+                  firstDate: DateTime.utc(2020),
+                  lastDate: DateTime.utc(2030),
+                  onDateChanged: (selectedDay) {
+                    context.read<EventController>().sortListBySelectedDay(
+                      selectedDay,
+                    );
+                  },
+                ),
               ),
             ),
-            const SizedBox(
-              height: 25,
-            ),
+            const SizedBox(height: 25),
             ListViewSchedules(),
           ],
         ),

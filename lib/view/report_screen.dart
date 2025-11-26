@@ -34,10 +34,7 @@ class _ReportScreenState extends State<ReportScreen> {
     final reportController = context.watch<ReportController>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(Translate.getString(Texts.report_title)),
-        centerTitle: true,
-      ),
+      appBar: MyAppBar(title: Texts.report_title),
       body: Column(
         children: [
           Align(

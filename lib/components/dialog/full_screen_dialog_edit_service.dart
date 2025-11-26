@@ -20,9 +20,6 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
   final TextEditingController allDayValueController = TextEditingController();
   final TextEditingController halfDayValueController = TextEditingController();
 
-  double _allDayValue = 0;
-  double _halfDayValue = 0;
-
   @override
   void initState() {
     super.initState();
@@ -35,6 +32,8 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<ServicesController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Translate.getString(Texts.edit_service_title)),
@@ -73,7 +72,7 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: const Icon(Icons.phone),
+                suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: allDayValueController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -89,7 +88,7 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
                 ),
-                suffixIcon: const Icon(Icons.location_on),
+                suffixIcon: const Icon(Icons.monetization_on_outlined),
               ),
               controller: halfDayValueController,
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -102,32 +101,34 @@ class _FullScreenDialogEditServiceState extends State<FullScreenDialogEditServic
               child: FilledButton(
                 onPressed: () {
                   try {
-                    _allDayValue = double.parse(allDayValueController.text);
-                    _halfDayValue = double.parse(halfDayValueController.text);
+                    double allDayValue = double.parse(allDayValueController.text);
+                    double halfDayValue = double.parse(halfDayValueController.text);
 
-                    if (_allDayValue == 0 || _halfDayValue == 0 || descriptionController.text.isEmpty) {
+                    if (allDayValue < 0 || halfDayValue < 0) {
                       return;
                     }
 
-                    context.watch<ServicesController>().updateService(
+                    controller.updateService(
                       widget.service.id,
                       descriptionController.text,
-                      _allDayValue,
-                      _halfDayValue,
+                      allDayValue,
+                      halfDayValue,
                     ).then((value) {
                       if (context.mounted) {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
-                              Translate.getString(Texts.success_add_service),
+                              Translate.getString(
+                                Texts.success_add_service,
+                              ),
                               style: const TextStyle(color: Colors.white),
                             ),
                             backgroundColor: Colors.green,
                           ),
                         );
                       }
-                    },);
+                    });
                   } catch (e) {
                     print(e);
                   }

@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../database/database.dart';
-import '../provider/database_provider.dart';
 
 class ServicesController extends ChangeNotifier {
   List serviceList = [];
@@ -24,6 +23,7 @@ class ServicesController extends ChangeNotifier {
       description: Value(description),
       allDayValue: Value(allDayValue),
       halfDayValue: Value(halfDayValue),
+      isActive: const Value(1),
     );
 
     await db.insertService(service).then(
