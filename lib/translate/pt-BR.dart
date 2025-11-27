@@ -201,6 +201,15 @@ class LanguageBrazilianPortuguese {
       case Texts.report_filter:
         return "Filtrar Relatório";
 
+      case Texts.filter_by_client_title:
+        return "Relatório por Cliente";
+
+      case Texts.filter_by_service_title:
+        return "Relatório por Serviço";
+
+      case Texts.report_filter_select_title:
+        return "Relatório (Selecione um filtro)";
+
       case Texts.filter_by_client:
         return "Por cliente";
 

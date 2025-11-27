@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:readiate_clean/components/main_navigation_bottom.dart';
-import 'package:readiate_clean/storage/storage_settings.dart';
 
 import '../controller/login_controller.dart';
 import '../provider/database_provider.dart';
@@ -19,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final LoginController controller = LoginController();
   final _loginKey = GlobalKey<FormState>();
-  bool rememberMeOption = false;
 
   @override
   void initState() {
@@ -119,21 +117,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           return null;
                         },
                       ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Checkbox(
-                            value: rememberMeOption,
-                            onChanged: (value) {
-                              setState(() {
-                                rememberMeOption = !rememberMeOption;
-                              });
-                            },
-                            activeColor: Colors.blue,
-                          ),
-                          Text(Translate.getString(Texts.remember_me)),
-                        ],
-                      ),
                       const SizedBox(height: 15),
                       SizedBox(
                         width: double.infinity,
@@ -172,9 +155,6 @@ class _LoginScreenState extends State<LoginScreen> {
       final db = DatabaseProvider.of(context);
 
       await controller.authUser(db).then((value) {
-        StorageSettings storageSettings = StorageSettings();
-        storageSettings.saveRememberLogin(rememberMeOption);
-
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(

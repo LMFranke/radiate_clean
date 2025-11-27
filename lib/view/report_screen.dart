@@ -47,18 +47,21 @@ class _ReportScreenState extends State<ReportScreen> {
           ),
           const SizedBox(height: 10),
 
-          Expanded(
-            child: (reportController.isLoading)
-                ? const Center(child: CircularProgressIndicator())
-                : (reportController.chartData.isEmpty)
-                ? Center(child: Text(reportController.reportTitle))
-                : SfCircularChart(
-              title: ChartTitle(text: reportController.reportTitle),
-              series: _getDynamicDoughnutSeries(reportController.chartData),
-              legend: const Legend(
-                isVisible: true,
-                overflowMode: LegendItemOverflowMode.wrap,
-                position: LegendPosition.bottom,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
+            child: Expanded(
+              child: (reportController.isLoading)
+                  ? const Center(child: CircularProgressIndicator())
+                  : (reportController.chartData.isEmpty)
+                  ? Center(child: Text(reportController.reportTitle))
+                  : SfCircularChart(
+                title: ChartTitle(text: reportController.reportTitle),
+                series: _getDynamicDoughnutSeries(reportController.chartData),
+                legend: const Legend(
+                  isVisible: true,
+                  overflowMode: LegendItemOverflowMode.wrap,
+                  position: LegendPosition.bottom,
+                ),
               ),
             ),
           ),

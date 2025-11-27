@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:readiate_clean/storage/storage_settings.dart';
 
 import '../database/database.dart';
-import '../provider/database_provider.dart';
 
 class LoginController {
 
@@ -11,20 +10,6 @@ class LoginController {
 
   bool isPasswordHide = true;
   bool isUserAndPasswordValid = true;
-
-  LoginController() {
-    StorageSettings().getUser().then(
-      (loginAndPassword) {
-
-        if (loginAndPassword.isEmpty || loginAndPassword.elementAt(0) == null || loginAndPassword.elementAt(1) == null) {
-          return;
-        }
-
-        loginController.text = loginAndPassword.elementAt(0)!;
-        passwordController.text = loginAndPassword.elementAt(1)!;
-      },
-    );
-  }
 
   Future authUser(MyDatabase db) async {
     await db.fetchUser().then(

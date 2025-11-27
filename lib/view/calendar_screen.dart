@@ -30,30 +30,33 @@ class _CalendarScreenState extends State<CalendarScreen> {
         child: Column(
           children: [
             const SizedBox(height: 25),
-            Container(
-              decoration: BoxDecoration(
-                  color: isDark ? Colors.grey[850] : Colors.grey[100],
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(8),
-                  )),
-              child: Theme(
-                data: Theme.of(context).copyWith(
-                  colorScheme: Theme.of(context).colorScheme.copyWith(
-                    primary: Colors.deepPurple,
-                    onPrimary: Colors.green,
-                    onSurface: isDark ? Colors.white : Colors.black,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: isDark ? Colors.grey[850] : Colors.grey[100],
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(8),
+                    )),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    colorScheme: Theme.of(context).colorScheme.copyWith(
+                      primary: Colors.deepPurple,
+                      onPrimary: Colors.green,
+                      onSurface: isDark ? Colors.white : Colors.black,
+                    ),
                   ),
-                ),
-                child: CalendarDatePicker(
-                  currentDate: DateTime.now(),
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.utc(2020),
-                  lastDate: DateTime.utc(2030),
-                  onDateChanged: (selectedDay) {
-                    context.read<EventController>().sortListBySelectedDay(
-                      selectedDay,
-                    );
-                  },
+                  child: CalendarDatePicker(
+                    currentDate: DateTime.now(),
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime.utc(2020),
+                    lastDate: DateTime.utc(2030),
+                    onDateChanged: (selectedDay) {
+                      context.read<EventController>().sortListBySelectedDay(
+                        selectedDay,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

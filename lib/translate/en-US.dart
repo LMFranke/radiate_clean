@@ -201,6 +201,15 @@ class LanguageEnglish {
       case Texts.report_filter:
         return "Report Filter";
 
+      case Texts.filter_by_client_title:
+        return "Report by Client";
+
+      case Texts.filter_by_service_title:
+        return "Report by Service";
+
+      case Texts.report_filter_select_title:
+        return "Report (Select a filter)";
+
       case Texts.filter_by_client:
         return "By client";
 

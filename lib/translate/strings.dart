@@ -95,6 +95,10 @@ enum Texts {
   cancel_event_title,
   cancel_event_message,
   event_canceled,
+  filter_by_service_title,
+  filter_by_client_title,
+  report_filter_select_title,
+
 }
 
 class Translate {
